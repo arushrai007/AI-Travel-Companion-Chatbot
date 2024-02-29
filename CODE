@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Indian cultural Tour</title>
+
+<style>
+
+a 
+{
+  text-decoration:none;
+}
+
+*
+{
+  margin:0;
+ padding:0;
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<table style="width:100%;">
+
+<tr>
+<td colspan="6" align="center"><img src="ihttps://th.bing.com/th?id=OIP.E7GGJsicQlNio5BwWfUz5gAAAA&w=401&h=50&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2" style="height:100px"></td>
+</tr>
+<tr style="background:orange;">
+<td align="center" style="padding:10px;"><a href="index.html">Home</a></td>
+<td align="center" style="padding:10px;"><a href="about.html">About Us</a></td>
+<td align="center" style="padding:10px;"><a href="domestic-tour.html">Indian cultural Tour</a></td>
+<td align="center" style="padding:10px;"><a href="contact.html">Contact</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td colspan="6"><img src="images/domestic-banner.jpg" style="width:100%;"></td>
+</tr>
+
+
+<tr>
+<td colspan="6" style="padding:20px 30px;"><h1>Domestic Tour</h1>
+</td>
+</tr>
+
+<tr>
+<td colspan="2" style="padding:20px 30px;"><img src="images/himachal.jpg" style="width:400px;">
+
+<h3>Himachal Pradesh</h3>
+
+</td>
+
+<td colspan="2" style="padding:20px 30px;"><img src="images/rajasthan.jpg" style="width:400px;">
+
+<h3>Rajasthan</h3>
+
+</td>
+
+
+<td colspan="2" style="padding:20px 30px;"><img src="images/kerala.webp" style="width:400px;">
+
+<h3>Kerala</h3>
+
+</td>
+
+
+</tr>
+
+
+<tr>
+<td colspan="2" style="padding:20px 30px;"><img src="https://th.bing.com/th/id/OIP.0eiEOkWRK6xaK_twG2U8RwHaE8?w=250&h=180&c=7&r=0&o=5&pid=1.7" style="width:400px;">
+
+<h3>uttar Pradesh</h3>
+
+</td>
+
+<td colspan="2" style="padding:20px 30px;"><img src="https://th.bing.com/th/id/OIP.w6UEKLwn6wQbIwMW8X-nhAHaGA?w=242&h=197&c=7&r=0&o=5&pid=1.7" style="width:400px;">
+
+<h3>punjab</h3>
+
+</td>
+
+
+<td colspan="2" style="padding:20px 30px;"><img src="https://th.bing.com/th/id/OIP.pwILIbsRKgJU17gDLTXFJgHaE3?w=282&h=184&c=7&r=0&o=5&pid=1.7" style="width:400px;">
+
+<h3>Delhi</h3>
+
+</td>
+
+
+</tr>
+
+<tr style="background:blue; ">
+<td colspan="6" align="center" style="padding:10px; color:#fff;">
+
+</td>
+</tr>
+
+</table>
+
+</body>
+</html>
