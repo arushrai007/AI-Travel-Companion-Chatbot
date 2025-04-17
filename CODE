@@ -1,105 +1,52 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Indian cultural Tour</title>
+import streamlit as st
+import cohere
+st.set_page_config(page_title="🌍 AI Travel Companion by Arush", page_icon="🧳")
+st.title("🧳 AI Travel Companion Chatbot")
+st.markdown("Ask travel questions: destinations, budget trips, safety, packing, etc.")
 
-<style>
+api_key = st.text_input("UZCA72sepSuswT5iXjA3oekkTu1jlmKAOr0I6PH6", type="password")
 
-a 
-{
-  text-decoration:none;
-}
+if api_key:
+    co = cohere.Client(api_key)
 
-*
-{
-  margin:0;
- padding:0;
-}
-
-</style>
-
-</head>
-
-<body>
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
 
 
-<table style="width:100%;">
+    user_input = st.chat_input("Ask me your travel question!")
 
-<tr>
-<td colspan="6" align="center"><img src="ihttps://th.bing.com/th?id=OIP.E7GGJsicQlNio5BwWfUz5gAAAA&w=401&h=50&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2" style="height:100px"></td>
-</tr>
-<tr style="background:orange;">
-<td align="center" style="padding:10px;"><a href="index.html">Home</a></td>
-<td align="center" style="padding:10px;"><a href="about.html">About Us</a></td>
-<td align="center" style="padding:10px;"><a href="domestic-tour.html">Indian cultural Tour</a></td>
-<td align="center" style="padding:10px;"><a href="contact.html">Contact</a></td>
-<td></td>
-</tr>
+    if user_input:
+        st.session_state.messages.append({"role": "user", "text": user_input})
+        with st.chat_message("user"):
+            st.markdown(user_input)
 
-<tr>
-<td colspan="6"><img src="images/domestic-banner.jpg" style="width:100%;"></td>
-</tr>
+       
+        prompt = "You are a friendly and detailed AI travel assistant. Provide complete and helpful travel guidance.\n\n"
+        for msg in st.session_state.messages:
+            role = "User" if msg["role"] == "user" else "Assistant"
+            prompt += f"{role}: {msg['text']}\n"
+        prompt += "Assistant:"
 
 
-<tr>
-<td colspan="6" style="padding:20px 30px;"><h1>Domestic Tour</h1>
-</td>
-</tr>
+        with st.spinner("Generating full response..."):
+            try:
+                response = co.generate(
+                    model="command-r-plus",
+                    prompt=prompt,
+                    max_tokens=1000,           
+                    temperature=0.7,
+                    stop_sequences=["User:"],
+                    truncate="END"
+                )
+                reply = response.generations[0].text.strip()
+            except Exception as e:
+                reply = f"❌ Error: {e}"
 
-<tr>
-<td colspan="2" style="padding:20px 30px;"><img src="images/himachal.jpg" style="width:400px;">
+        
+        st.session_state.messages.append({"role": "assistant", "text": reply})
+        with st.chat_message("assistant"):
+            st.markdown(reply)
 
-<h3>Himachal Pradesh</h3>
-
-</td>
-
-<td colspan="2" style="padding:20px 30px;"><img src="images/rajasthan.jpg" style="width:400px;">
-
-<h3>Rajasthan</h3>
-
-</td>
-
-
-<td colspan="2" style="padding:20px 30px;"><img src="images/kerala.webp" style="width:400px;">
-
-<h3>Kerala</h3>
-
-</td>
-
-
-</tr>
-
-
-<tr>
-<td colspan="2" style="padding:20px 30px;"><img src="https://th.bing.com/th/id/OIP.0eiEOkWRK6xaK_twG2U8RwHaE8?w=250&h=180&c=7&r=0&o=5&pid=1.7" style="width:400px;">
-
-<h3>uttar Pradesh</h3>
-
-</td>
-
-<td colspan="2" style="padding:20px 30px;"><img src="https://th.bing.com/th/id/OIP.w6UEKLwn6wQbIwMW8X-nhAHaGA?w=242&h=197&c=7&r=0&o=5&pid=1.7" style="width:400px;">
-
-<h3>punjab</h3>
-
-</td>
-
-
-<td colspan="2" style="padding:20px 30px;"><img src="https://th.bing.com/th/id/OIP.pwILIbsRKgJU17gDLTXFJgHaE3?w=282&h=184&c=7&r=0&o=5&pid=1.7" style="width:400px;">
-
-<h3>Delhi</h3>
-
-</td>
-
-
-</tr>
-
-<tr style="background:blue; ">
-<td colspan="6" align="center" style="padding:10px; color:#fff;">
-
-</td>
-</tr>
-
-</table>
-
-</body>
-</html>
+    for msg in st.session_state.messages:
+        with st.chat_message("user" if msg["role"] == "user" else "assistant"):
+            st.markdown(msg["text"])
