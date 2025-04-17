@@ -1,1 +1,24 @@
-Problem statement no. 27. Title: IDEA THAT SHOWCASE THE RICH CULTURAL HERITAGE AND TRADITIONS OF INDIA. IDEA: Working on a website which will showcase the whole indian state traditions and cultures itself from the homepage. Project Details : On home age of our website there will be a large map of india all updated with its respective state names .The user can click on the particular state and will be directed to that particular state page which will show about the culture and traditions like dance , food , draces , festivals, etc. For better user interface we will be providing with some videos link and the whole description about the state.
+Title: AI Travel Companion Chatbot​
+Microsoft Create
+
+Abstract: This project presents an AI-powered chatbot designed to assist users with travel-related queries, providing detailed itineraries, safety tips, and destination information.​
+
+Tools & Technologies:
+
+Python
+
+Streamlit
+
+Cohere's Command R+ API​
+
+Features:
+
+Interactive user interface for travel inquiries
+
+Detailed and context-aware responses
+
+
+
+Implementation Overview: The chatbot utilizes Cohere's language model to generate responses based on user input, maintaining context through session state management in Streamlit.​
+
+Conclusion: The AI Travel Companion effectively demonstrates the integration of AI in enhancing user travel planning experiences.​
