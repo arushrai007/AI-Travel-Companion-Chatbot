@@ -6,7 +6,7 @@ st.title("🧳 AI Travel Companion Chatbot")
 st.markdown("Ask travel-related questions only: destinations, budget trips, safety, packing tips, etc.")
 
 # Prompt the user for the key instead of hardcoding it
-api_key = st.text_input("UZCA72sepSuswT5iXjA3oekkTu1jlmKAOr0I6PH6:", type="password")
+api_key = st.text_input("kR24ElUotvNUIUncuXoaAAFn3g1OqHaDPMt4j54m:", type="password")
 
 if api_key:
     co = cohere.Client(api_key)
