@@ -5,7 +5,8 @@ st.set_page_config(page_title="🌍 AI Travel Companion", page_icon="🧳")
 st.title("🧳 AI Travel Companion Chatbot")
 st.markdown("Ask travel-related questions only: destinations, budget trips, safety, packing tips, etc.")
 
-api_key = st.text_input("UZCA72sepSuswT5iXjA3oekkTu1jlmKAOr0I6PH6", type="password")
+# Prompt the user for the key instead of hardcoding it
+api_key = st.text_input("UZCA72sepSuswT5iXjA3oekkTu1jlmKAOr0I6PH6:", type="password")
 
 if api_key:
     co = cohere.Client(api_key)
@@ -13,47 +14,50 @@ if api_key:
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
+    # 1. Render existing messages first
+    for msg in st.session_state.messages:
+        with st.chat_message(msg["role"]):
+            st.markdown(msg["text"])
+
     user_input = st.chat_input("Ask me your travel-related question!")
 
     if user_input:
+        # Append user message to state and display it
         st.session_state.messages.append({"role": "user", "text": user_input})
         with st.chat_message("user"):
             st.markdown(user_input)
 
-        prompt = """You are an AI Travel Companion. You ONLY answer travel-related questions such as destinations, travel tips, budgeting, itineraries, packing, transportation, accommodations, and safety.
+        # 2. Define instructions for the chatbot using 'preamble'
+        preamble = """You are an AI Travel Companion. You ONLY answer travel-related questions such as destinations, travel tips, budgeting, itineraries, packing, transportation, accommodations, and safety.
 
 If the user asks anything unrelated to travel, politely respond with: "I'm here to help only with travel-related questions 😊. Please ask something related to your trip!"
-
-Previous conversation:
 """
 
-        for msg in st.session_state.messages:
-            role = "User" if msg["role"] == "user" else "Assistant"
-            prompt += f"{role}: {msg['text']}\n"
-        prompt += "Assistant:"
+        # 3. Format history for Cohere's Chat API
+        cohere_chat_history = []
+        for msg in st.session_state.messages[:-1]: # All messages EXCEPT the current one
+            cohere_role = "USER" if msg["role"] == "user" else "CHATBOT"
+            cohere_chat_history.append({"role": cohere_role, "message": msg["text"]})
 
+        # 4. Use the new co.chat() API
         with st.spinner("Generating travel advice..."):
             try:
-                response = co.generate(
+                response = co.chat(
                     model="command-r-plus",
-                    prompt=prompt,
-                    max_tokens=500,
+                    message=user_input,
+                    preamble=preamble,
+                    chat_history=cohere_chat_history,
                     temperature=0.7,
-                    stop_sequences=["User:"],
-                    truncate="END"
+                    max_tokens=500
                 )
-                reply = response.generations[0].text.strip()
+                reply = response.text.strip()
             except Exception as e:
                 reply = f"❌ Error: {e}"
 
+        # Append and render assistant response
         st.session_state.messages.append({"role": "assistant", "text": reply})
         with st.chat_message("assistant"):
             st.markdown(reply)
 
-    for msg in st.session_state.messages:
-        with st.chat_message("user" if msg["role"] == "user" else "assistant"):
-            st.markdown(msg["text"])
-
 st.markdown("""---  
-**Created by Arush and Suresh**  
-""", unsafe_allow_html=True)
+**Created by Arush** """, unsafe_allow_html=True)
