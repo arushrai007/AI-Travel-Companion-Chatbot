@@ -43,7 +43,7 @@ If the user asks anything unrelated to travel, politely respond with: "I'm here 
         with st.spinner("Generating travel advice..."):
             try:
                 response = co.chat(
-                    model="command-r-plus",
+                    model="command-r-plus-08-2024",
                     message=user_input,
                     preamble=preamble,
                     chat_history=cohere_chat_history,
