@@ -1,4 +1,4 @@
-# 🌍 AI Travel Companion Chatbot
+## 🌍 AI Travel Companion Chatbot
 
 An **AI-powered travel assistant** built using **Python**, **Streamlit**, and **Cohere's Command R+ API**. This chatbot helps users plan trips, discover destinations, and get travel tips through an interactive chat interface.
 
